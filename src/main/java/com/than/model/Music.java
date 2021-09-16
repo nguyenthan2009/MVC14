@@ -1,6 +1,11 @@
 package com.than.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Music {
+    @Id
     private int id;
     private String nameMusic;
     private String author;
