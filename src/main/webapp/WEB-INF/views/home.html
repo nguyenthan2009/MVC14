@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>tao la trang chu day</h1>
+<div th:replace="layout::menu"></div>
+<table>
+  <tr>
+    <td>id</td>
+    <td>name</td>
+    <td>author</td>
+    <td>catalory</td>
+    <td>Music</td>
+
+  </tr>
+  <th:block>
+    <tr th:each="s : ${list}">
+      <td th:text="${s.id}"></td>
+      <td th:text="${s.nameMusic}"></td>
+      <td th:text="${s.author}"></td>
+      <td th:text="${s.category}"></td>
+      <td>
+        <audio id="track" controls loop>
+          <source th:src="@{'/image/' + ${s.music}}"type="audio/ogg">
+          <source th:src="@{'/image/' + ${s.music}}"type="audio/mpeg">
+          <p>Your browser does not support the audio element</p>
+        </audio>
+      </td>
+    </tr>
+  </th:block>
+</table>
+</body>
+</html>

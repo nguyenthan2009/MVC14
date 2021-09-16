@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:replace="layout::menu"></div>
+<!--<form method="post" th:object="${student}">-->
+<!--    <input type="text" th:field="*{id}">-->
+<!--    <input type="text" th:field="*{name}">-->
+<!--    <input type="text" th:field="*{email}">-->
+<!--    <button type="submit">Create</button>-->
+<!--</form>-->
+<form method="post" enctype="multipart/form-data" >
+  <input type="text" id="id" name="id">
+  <input type="text" id="name" name="nameMusic" >
+  <input type="text" id="email" name="author">
+  <input type="text" id="img" name="category">
+  <input type="file" id="music" name="music">
+  <button type="submit">Create</button>
+</form>
+<div th:replace="layout::footer"></div>
+</body>
+</html>
