@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Music {
     @Id
-    private int id;
+    private Long id;
     private String nameMusic;
     private String author;
     private String category;
@@ -14,14 +14,14 @@ public class Music {
 
     public Music() {
     }
-    public Music(int id, String nameMusic,String author,String category){
+    public Music(Long id, String nameMusic,String author,String category){
         this.id = id;
         this.nameMusic = nameMusic;
         this.author = author;
         this.category = category;
     }
 
-    public Music( int id,String nameMusic, String author, String category, String music) {
+    public Music( Long id,String nameMusic, String author, String category, String music) {
         this.id = id;
         this.nameMusic = nameMusic;
         this.author = author;
@@ -61,11 +61,11 @@ public class Music {
         this.music = music;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

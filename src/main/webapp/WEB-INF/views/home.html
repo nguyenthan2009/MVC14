@@ -5,15 +5,16 @@
   <title>Title</title>
 </head>
 <body>
-<h1>tao la trang chu day</h1>
 <div th:replace="layout::menu"></div>
+<a th:href="@{/create}"> Create NewMusic</a>
 <table>
   <tr>
-    <td>id</td>
-    <td>name</td>
-    <td>author</td>
-    <td>catalory</td>
+    <td>Id</td>
+    <td>Name</td>
+    <td>Author</td>
+    <td>Catalory</td>
     <td>Music</td>
+    <td>Action</td>
 
   </tr>
   <th:block>
@@ -29,6 +30,9 @@
           <p>Your browser does not support the audio element</p>
         </audio>
       </td>
+      <td><a th:href="@{/edit/{id}(id=${s.id})}">Edit</a> </td>
+      <td><a th:href="@{/detail/{id}(id=${s.id})}">Detail</a> </td>
+      <td><a th:href="@{/delete/{id}(id=${s.id})}">Delete</a> </td>
     </tr>
   </th:block>
 </table>

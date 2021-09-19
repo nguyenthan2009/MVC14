@@ -1,8 +1,9 @@
 package com.than.config;
 
+import com.than.repository.IMusicRepository;
+import com.than.repository.MusicRepository;
 import com.than.service.IMusicService;
 import com.than.service.MusicService;
-import com.than.service.MusicServiceDB;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,6 +36,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan("com.than.controller")
 @PropertySource("classpath:upload_file.properties")
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
@@ -43,17 +50,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-//    doi tuong
-//            thuoc tinh 1 = gia tri 1
-//            thuoc tinh 2 = gia tri 2
-//    @Bean
-//    public InternalResourceViewResolver internalResourceViewResolver(){
-//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/WEB-INF/views/");
-//        viewResolver.setSuffix(".html");
-//        return  viewResolver;
-//    }
-
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -61,6 +57,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
     @Bean
@@ -75,12 +72,14 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         System.out.println("abc");
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
+        System.out.println("ac");
         return viewResolver;
     }
 
     @Bean
     public IMusicService musicService(){
-        return new MusicServiceDB();
+        return new MusicService();
     }
 
     //Cấu hình upload file
@@ -116,19 +115,30 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         return dataSource;
     }
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactoryBean(){
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("com.than.model");
-        sessionFactoryBean.setHibernateProperties(additionalProperties());
-        return sessionFactoryBean;
-    }
 
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("com.than.model");
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
+        return em;
+    }
     @Bean
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory){
         return entityManagerFactory.createEntityManager();
     }
-
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
+    @Bean
+    public IMusicRepository musicRepository(){
+        return new MusicRepository();
+    }
 
 }
