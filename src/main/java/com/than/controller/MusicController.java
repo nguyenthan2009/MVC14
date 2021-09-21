@@ -9,6 +9,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +43,11 @@ public class MusicController {
         return modelAndView;
     }
     @PostMapping("/create")
-    public String createNewMusic(@ModelAttribute MusicForm musicForm){
+    public ModelAndView createNewMusic(@Validated MusicForm musicForm, BindingResult result){
+        if (result.hasFieldErrors()) {
+            System.out.println("lỗi");
+            return new ModelAndView("create");
+        }
         MultipartFile multipartFile = musicForm.getMusic();
         String fileName = multipartFile.getOriginalFilename();
         try {
@@ -58,7 +64,7 @@ public class MusicController {
         music1.setCategory(musicForm.getCategory());
         musicService.save(music1);
         System.out.println(music1);
-        return "redirect:/musics";
+        return new ModelAndView("redirect:/musics");
     }
     @GetMapping("/edit/{id}")
     public ModelAndView showFormEdit(@PathVariable Long id){

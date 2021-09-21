@@ -2,10 +2,22 @@ package com.than.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class MusicForm {
     private Long id;
+
+    @NotEmpty(message = "Tên bài hát phải từ 2-800 kí tự")
+    @Size(min=2,max=800)
     private String nameMusic;
+
+    @NotEmpty(message = "Tên tác giả phải từ 2-300 kí tự")
+    @Size(min=2,max=300)
     private String author;
+
+    @NotEmpty(message = "Tên thể loại phải từ 2-100 kí tự")
+    @Size(min=2,max=100)
     private String category;
     private MultipartFile music;
 

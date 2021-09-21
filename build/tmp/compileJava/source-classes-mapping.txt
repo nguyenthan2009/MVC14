@@ -1,28 +1,28 @@
-com/than/service/IMusicService.java
- com.than.service.IMusicService
-com/than/model/MusicForm.java
- com.than.model.MusicForm
-com/than/model/Music.java
- com.than.model.Music
-com/than/controller/MusicController.java
- com.than.controller.MusicController
-com/than/repository/IUserRepository.java
- com.than.repository.IUserRepository
-com/than/repository/IMusicRepository.java
- com.than.repository.IMusicRepository
-com/than/service/MusicService.java
- com.than.service.MusicService
-com/than/repository/MusicRepository.java
- com.than.repository.MusicRepository
-com/than/config/AppInit.java
- com.than.config.AppInit
-com/than/controller/UserController.java
- com.than.controller.UserController
-com/than/service/UserService.java
- com.than.service.UserService
-com/than/config/AppConfig.java
- com.than.config.AppConfig
-com/than/service/IUserService.java
- com.than.service.IUserService
 com/than/model/User.java
  com.than.model.User
+com/than/config/AppInit.java
+ com.than.config.AppInit
+com/than/service/IUserService.java
+ com.than.service.IUserService
+com/than/controller/UserController.java
+ com.than.controller.UserController
+com/than/repository/IUserRepository.java
+ com.than.repository.IUserRepository
+com/than/service/UserService.java
+ com.than.service.UserService
+com/than/service/IMusicService.java
+ com.than.service.IMusicService
+com/than/model/Music.java
+ com.than.model.Music
+com/than/repository/IMusicRepository.java
+ com.than.repository.IMusicRepository
+com/than/repository/MusicRepository.java
+ com.than.repository.MusicRepository
+com/than/config/AppConfig.java
+ com.than.config.AppConfig
+com/than/service/MusicService.java
+ com.than.service.MusicService
+com/than/model/MusicForm.java
+ com.than.model.MusicForm
+com/than/controller/MusicController.java
+ com.than.controller.MusicController

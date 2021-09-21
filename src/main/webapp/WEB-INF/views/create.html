@@ -13,12 +13,36 @@
 <!--    <button type="submit">Create</button>-->
 <!--</form>-->
 <form method="post" enctype="multipart/form-data" th:object="${music}" >
-  <input type="text" id="id"  th:field ="*{id}">
-  <input type="text" id="name"   th:field ="*{nameMusic}" >
-  <input type="text" id="email"   th:field ="*{author}">
-  <input type="text" id="img"   th:field ="*{category}">
-  <input type="file" id="music"   th:field ="*{music}">
-  <button type="submit">Create</button>
+    <table>
+        <tr>
+            <td><input th:hidden="id" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>NameMusic:</td>
+            <td><input th:field="*{nameMusic}"></td>
+            <td th:if="${#fields.hasErrors('nameMusic')}" th:errors="*{nameMusic}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td><input th:field="*{author}"></td>
+            <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td><input th:field="*{category}"></td>
+            <td th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Email Error</td>
+        </tr>
+        <tr>
+            <td>Music</td>
+            <td><input type="file" th:field="*{music}"></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+
 </form>
 <div th:replace="layout::footer"></div>
 </body>
