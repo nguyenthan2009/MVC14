@@ -11,5 +11,4 @@ public interface IMusicRepository {
     void save(Music music);
     void delete(Long id);
     Music findById(Long id);
-
 }

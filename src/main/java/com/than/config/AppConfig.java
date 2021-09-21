@@ -3,7 +3,9 @@ package com.than.config;
 import com.than.repository.IMusicRepository;
 import com.than.repository.MusicRepository;
 import com.than.service.IMusicService;
+import com.than.service.IUserService;
 import com.than.service.MusicService;
+import com.than.service.UserService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -12,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -38,6 +42,8 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("com.than.controller")
+@EnableJpaRepositories("com.than.repository")
+@EnableSpringDataWebSupport
 @PropertySource("classpath:upload_file.properties")
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Value("${file-upload}")
@@ -139,6 +145,10 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Bean
     public IMusicRepository musicRepository(){
         return new MusicRepository();
+    }
+    @Bean
+    public IUserService userService(){
+        return new UserService();
     }
 
 }
