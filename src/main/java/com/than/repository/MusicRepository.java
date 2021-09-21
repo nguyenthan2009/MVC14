@@ -20,7 +20,7 @@ public class MusicRepository implements IMusicRepository{
 
     @Override
     public void save(Music music) {
-        if(music!=null){
+        if(music.getId()!=null){
             entityManager.merge(music);
         } else {
             entityManager.persist(music);

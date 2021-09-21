@@ -68,8 +68,7 @@ public class MusicController {
         return modelAndView;
     }
     @PostMapping("/edit")
-    public String editCustomer(@ModelAttribute("editForm") MusicForm musicForm1){
-        MultipartFile multipartFile = musicForm1.getMusic();
+    public String editCustomer(@ModelAttribute("editForm") Music music, MultipartFile multipartFile){
         String fileName = multipartFile.getOriginalFilename();
         try {
             FileCopyUtils.copy(multipartFile.getBytes(),
@@ -77,14 +76,8 @@ public class MusicController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Music music1 = new Music();
-        music1.setMusic(fileName);
-        music1.setId(musicForm1.getId());
-        music1.setNameMusic(musicForm1.getNameMusic());
-        music1.setAuthor(musicForm1.getAuthor());
-        music1.setCategory(musicForm1.getCategory());
-        musicService.save(music1);
-        System.out.println(music1);
+        music.setMusic(fileName);
+        musicService.save(music);
         return "redirect:/musics";
     }
     @GetMapping("/delete/{id}")
